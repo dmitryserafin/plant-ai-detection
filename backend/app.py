@@ -36,6 +36,12 @@ app.add_middleware(
     ,allow_headers=["*"]
 )
 
+class DiseaseLocation(BaseModel):
+    x: int
+    y: int
+    width: int
+    height: int
+
 class PredictResponse(BaseModel):
     id: str
     disease: str
@@ -49,6 +55,7 @@ class PredictResponse(BaseModel):
     causative_agent: str
     treatment_urgency: str
     inference_ms: int
+    disease_location: Optional[DiseaseLocation] = None
 
 class ErrorResponse(BaseModel):
     detail: str
@@ -98,6 +105,8 @@ CRITICAL: {language_instructions.get(language, language_instructions['en'])}.
 
 ALL FIELDS INCLUDING DISEASE NAMES, DESCRIPTIONS, RECOMMENDATIONS, AND TECHNICAL TERMS MUST BE IN THE SPECIFIED LANGUAGE.
 
+IMAGE COORDINATE SYSTEM: The top-left corner is (0, 0). The bottom-right corner is (width, height). Provide coordinates for a single bounding box that encloses the most representative symptom.
+
 Respond in this exact JSON format with all content in the specified language:
 {{
   "disease_name": "specific disease name with scientific classification or 'Healthy Plant' in the target language",
@@ -108,7 +117,8 @@ Respond in this exact JSON format with all content in the specified language:
   "plant_type": "identified plant species or family if determinable in target language",
   "affected_parts": ["leaves", "stems", "roots", "flowers", "fruits"] in target language,
   "causative_agent": "fungal/bacterial/viral/nutritional/environmental/pest in target language",
-  "treatment_urgency": "immediate/within_week/routine_care/monitoring in target language"
+  "treatment_urgency": "immediate/within_week/routine_care/monitoring in target language",
+  "disease_location": {{ "x": 120, "y": 250, "width": 80, "height": 100 }}
 }}
 
 CONFIDENCE SCORING:
@@ -298,6 +308,9 @@ async def predict(
                         suggestions = recommendations if isinstance(recommendations, list) else [recommendations or "No recommendations available"]
 
                         t_ms = int((time.time()-t0)*1000)
+                        disease_location = parsed.get("disease_location")
+
+                        t_ms = int((time.time()-t0)*1000)
                         return PredictResponse(
                             id=str(int(time.time()*1000)),
                             disease=parsed.get("disease_name", "Unknown"),
@@ -310,6 +323,7 @@ async def predict(
                             affected_parts=parsed.get("affected_parts", []),
                             causative_agent=parsed.get("causative_agent", "Unknown"),
                             treatment_urgency=parsed.get("treatment_urgency", "monitoring"),
+                            disease_location=DiseaseLocation(**disease_location) if disease_location else None,
                             inference_ms=t_ms
                         )
                 except (json.JSONDecodeError, KeyError, ValueError) as e:
