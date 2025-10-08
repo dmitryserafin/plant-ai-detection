@@ -19,8 +19,21 @@ export default function App() {
     affected_parts?: string[]
     causative_agent?: string
     treatment_urgency?: string
+    disease_location?: {
+      x: number
+      y: number
+      width: number
+      height: number
+    }
   }>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const imgRef = useRef<HTMLImageElement | null>(null)
+  const [imageDimensions, setImageDimensions] = useState<{
+    offsetWidth: number;
+    offsetHeight: number;
+    naturalWidth: number;
+    naturalHeight: number;
+  } | null>(null)
 
   const t = translations[language]
 
@@ -32,6 +45,7 @@ export default function App() {
     const f = e.target.files?.[0]
     setError(null)
     setResult(null)
+    setImageDimensions(null)
     if (f) {
       setFile(f)
       const url = URL.createObjectURL(f)
@@ -68,7 +82,8 @@ export default function App() {
         plant_type: data.plant_type,
         affected_parts: data.affected_parts,
         causative_agent: data.causative_agent,
-        treatment_urgency: data.treatment_urgency
+        treatment_urgency: data.treatment_urgency,
+        disease_location: data.disease_location
       })
     } catch (e: any) {
       setError(e.message || t.predictionFailedError)
@@ -78,7 +93,7 @@ export default function App() {
   }
 
   function onClear() {
-    setFile(null); setImgUrl(null); setResult(null); setError(null)
+    setFile(null); setImgUrl(null); setResult(null); setError(null); setImageDimensions(null)
     inputRef.current?.value && (inputRef.current.value = '')
   }
 
@@ -169,21 +184,46 @@ export default function App() {
                       <p className="text-xs text-slate-500 mt-2">{t.supportedFormats}</p>
                     </div>
                   ) : (
-                    <div className="relative">
-                      <img 
-                        src={imgUrl || ''} 
-                        className="max-w-full max-h-64 mx-auto rounded-lg shadow-md object-cover" 
-                        alt="Plant preview"
-                      />
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onClear();
-                        }}
-                        className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg"
-                      >
-                        ×
-                      </button>
+                    <div className="text-center">
+                      <div className="relative inline-block align-top">
+                        <img
+                          ref={imgRef}
+                          src={imgUrl || ''}
+                          className="max-w-full max-h-64 rounded-lg shadow-md object-cover"
+                          alt="Plant preview"
+                          onLoad={(e) => {
+                            const img = e.currentTarget;
+                            setImageDimensions({
+                              offsetWidth: img.offsetWidth,
+                              offsetHeight: img.offsetHeight,
+                              naturalWidth: img.naturalWidth,
+                              naturalHeight: img.naturalHeight,
+                            });
+                          }}
+                        />
+                        {result?.disease_location && imageDimensions && (
+                          <div
+                            data-testid="bounding-box"
+                            className="absolute border-4 border-red-500 pointer-events-none rounded-md"
+                            style={{
+                              boxShadow: '0 0 10px rgba(255, 0, 0, 0.5)',
+                              left: `${(result.disease_location.x / imageDimensions.naturalWidth) * imageDimensions.offsetWidth}px`,
+                              top: `${(result.disease_location.y / imageDimensions.naturalHeight) * imageDimensions.offsetHeight}px`,
+                              width: `${(result.disease_location.width / imageDimensions.naturalWidth) * imageDimensions.offsetWidth}px`,
+                              height: `${(result.disease_location.height / imageDimensions.naturalHeight) * imageDimensions.offsetHeight}px`,
+                            }}
+                          />
+                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onClear();
+                          }}
+                          className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg"
+                        >
+                          ×
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
