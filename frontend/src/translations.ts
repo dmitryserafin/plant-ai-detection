@@ -1,175 +1,154 @@
 export const translations = {
   en: {
-    // Header
     appTitle: "PlantAI",
-    appSubtitle: "AI-Powered Plant Disease Detection",
+    appSubtitle: "AI-Powered Plant Analysis",
     createdBy: "by Karthik V K",
-    
-    // Upload Section
-    uploadTitle: "Upload Plant Image",
-    uploadSubtitle: "Drop an image or click to browse",
+    uploadTitle: "Diagnose Plant Disease",
+    recognizeTitle: "Recognize Plant Species",
+    uploadSubtitle: "Upload an image for diagnosis",
+    recognizeSubtitle: "Upload an image for recognition",
+    uploadInstruction: "Drop an image or click to browse",
     supportedFormats: "Supports JPEG, PNG up to 8MB",
-    
-    // Buttons
-    analyzeButton: "Analyze Plant",
+    analyzeButton: "Diagnose Plant",
+    recognizeButton: "Recognize Plant",
     analyzingButton: "Analyzing...",
     clearButton: "Clear",
     analyzeAnotherButton: "Analyze Another Image",
-    
-    // Results Section
     resultsTitle: "Analysis Results",
-    resultsSubtitle: "AI-powered disease detection",
+    resultsSubtitle: "AI-powered insights",
     uploadPrompt: "Upload an image to see results",
     confidenceLevel: "Confidence Level",
     analysisTime: "Analysis completed in",
     recommendations: "Recommendations",
-    
-    // Footer
     poweredBy: "Powered by Google Gemini AI • For educational purposes only",
     credits: "Created by Karthik V K • Built with React + Cloudflare",
-    
-    // Errors
     selectImageError: "Please select an image",
-    predictionFailedError: "Prediction failed",
-    
-    // Language Selector
+    predictionFailedError: "Analysis failed. Please try again.",
     language: "Language",
-    languages: {
-      en: "English",
-      hi: "हिन्दी",
-      ta: "தமிழ்",
-      ml: "മലയാളം"
-    }
+    languages: { en: "English", ru: "Русский", hi: "हिन्दी", ta: "தமிழ்", ml: "മലയാളം" },
+    diagnosis: "Diagnosis",
+    recognition: "Recognition",
   },
-  
-  hi: {
-    // Header
+  ru: {
     appTitle: "PlantAI",
-    appSubtitle: "AI-संचालित पौधे रोग पहचान",
+    appSubtitle: "Анализ растений с помощью ИИ",
+    createdBy: "от Karthik V K",
+    uploadTitle: "Диагностика заболевания растений",
+    recognizeTitle: "Распознавание вида растения",
+    uploadSubtitle: "Загрузите изображение для диагностики",
+    recognizeSubtitle: "Загрузите изображение для распознавания",
+    uploadInstruction: "Перетащите изображение или нажмите для обзора",
+    supportedFormats: "Поддерживает JPEG, PNG до 8МБ",
+    analyzeButton: "Диагностировать",
+    recognizeButton: "Распознать",
+    analyzingButton: "Анализ...",
+    clearButton: "Очистить",
+    analyzeAnotherButton: "Анализировать другое изображение",
+    resultsTitle: "Результаты анализа",
+    resultsSubtitle: "Аналитика на базе ИИ",
+    uploadPrompt: "Загрузите изображение, чтобы увидеть результаты",
+    confidenceLevel: "Уровень уверенности",
+    analysisTime: "Анализ завершен за",
+    recommendations: "Рекомендации",
+    poweredBy: "Работает на Google Gemini AI • Только в образовательных целях",
+    credits: "Создано Karthik V K • Сделано на React + Cloudflare",
+    selectImageError: "Пожалуйста, выберите изображение",
+    predictionFailedError: "Ошибка анализа. Пожалуйста, попробуйте еще раз.",
+    language: "Язык",
+    languages: { en: "English", ru: "Русский", hi: "हिन्दी", ta: "தமிழ்", ml: "മലയാളം" },
+    diagnosis: "Диагностика",
+    recognition: "Распознавание",
+  },
+  hi: {
+    appTitle: "PlantAI",
+    appSubtitle: "AI-संचालित पौधे का विश्लेषण",
     createdBy: "कार्तिक वी के द्वारा",
-    
-    // Upload Section
-    uploadTitle: "पौधे की तस्वीर अपलोड करें",
-    uploadSubtitle: "एक तस्वीर डालें या ब्राउज़ करने के लिए क्लिक करें",
+    uploadTitle: "पौधे की बीमारी का निदान करें",
+    recognizeTitle: "पौधे की प्रजाति को पहचानें",
+    uploadSubtitle: "निदान के लिए एक छवि अपलोड करें",
+    recognizeSubtitle: "पहचान के लिए एक छवि अपलोड करें",
+    uploadInstruction: "एक छवि डालें या ब्राउज़ करने के लिए क्लिक करें",
     supportedFormats: "8MB तक JPEG, PNG समर्थित",
-    
-    // Buttons
-    analyzeButton: "पौधे का विश्लेषण करें",
+    analyzeButton: "निदान करें",
+    recognizeButton: "पहचानें",
     analyzingButton: "विश्लेषण हो रहा है...",
     clearButton: "साफ़ करें",
     analyzeAnotherButton: "दूसरी तस्वीर का विश्लेषण करें",
-    
-    // Results Section
     resultsTitle: "विश्लेषण परिणाम",
-    resultsSubtitle: "AI-संचालित रोग पहचान",
+    resultsSubtitle: "AI-संचालित अंतर्दृष्टि",
     uploadPrompt: "परिणाम देखने के लिए एक तस्वीर अपलोड करें",
     confidenceLevel: "विश्वास स्तर",
     analysisTime: "विश्लेषण पूरा हुआ",
     recommendations: "सिफारिशें",
-    
-    // Footer
     poweredBy: "Google Gemini AI द्वारा संचालित • केवल शैक्षिक उद्देश्यों के लिए",
     credits: "कार्तिक वी के द्वारा निर्मित • React + Cloudflare के साथ बनाया गया",
-    
-    // Errors
     selectImageError: "कृपया एक तस्वीर चुनें",
-    predictionFailedError: "भविष्यवाणी असफल",
-    
-    // Language Selector
+    predictionFailedError: "विश्लेषण विफल रहा। कृपया पुनः प्रयास करें।",
     language: "भाषा",
-    languages: {
-      en: "English",
-      hi: "हिन्दी",
-      ta: "தமிழ்",
-      ml: "മലയാളം"
-    }
+    languages: { en: "English", ru: "Русский", hi: "हिन्दी", ta: "தமிழ்", ml: "മലയാളം" },
+    diagnosis: "निदान",
+    recognition: "पहचान",
   },
-
   ta: {
-    // Header
     appTitle: "PlantAI",
-    appSubtitle: "AI-இயங்கும் தாவர நோய் கண்டறிதல்",
+    appSubtitle: "AI-இயங்கும் தாவர பகுப்பாய்வு",
     createdBy: "கார்த்திக் வி கே மூலம்",
-    
-    // Upload Section
-    uploadTitle: "தாவர படத்தை பதிவேற்றவும்",
-    uploadSubtitle: "ஒரு படத்தை இழுத்து விடவும் அல்லது உலாவ கிளிக் செய்யவும்",
+    uploadTitle: "தாவர நோயைக் கண்டறியவும்",
+    recognizeTitle: "தாவர இனங்களை அங்கீகரிக்கவும்",
+    uploadSubtitle: "நோய் கண்டறிதலுக்காக ஒரு படத்தைப் பதிவேற்றவும்",
+    recognizeSubtitle: "அங்கீகாரத்திற்காக ஒரு படத்தைப் பதிவேற்றவும்",
+    uploadInstruction: "ஒரு படத்தை இழுத்து விடவும் அல்லது உலாவ கிளிக் செய்யவும்",
     supportedFormats: "8MB வரை JPEG, PNG ஆதரவு",
-    
-    // Buttons
-    analyzeButton: "தாவரத்தை பகுப்பாய்வு செய்யவும்",
+    analyzeButton: "நோய் கண்டறி",
+    recognizeButton: "அங்கீகாரம்",
     analyzingButton: "பகுப்பாய்வு செய்கிறது...",
     clearButton: "அழிக்கவும்",
     analyzeAnotherButton: "மற்றொரு படத்தை பகுப்பாய்வு செய்யவும்",
-    
-    // Results Section
     resultsTitle: "பகுப்பாய்வு முடிவுகள்",
-    resultsSubtitle: "AI-இயங்கும் நோய் கண்டறிதல்",
+    resultsSubtitle: "AI-இயங்கும் நுண்ணறிவு",
     uploadPrompt: "முடிவுகளைப் பார்க்க ஒரு படத்தை பதிவேற்றவும்",
     confidenceLevel: "நம்பிக்கை நிலை",
     analysisTime: "பகுப்பாய்வு முடிந்தது",
     recommendations: "பரிந்துரைகள்",
-    
-    // Footer
     poweredBy: "Google Gemini AI ஆல் இயக்கப்படுகிறது • கல்வி நோக்கங்களுக்காக மட்டும்",
     credits: "கார்த்திக் வி கே மூலம் உருவாக்கப்பட்டது • React + Cloudflare உடன் கட்டமைக்கப்பட்டது",
-    
-    // Errors
     selectImageError: "தயவுசெய்து ஒரு படத்தைத் தேர்ந்தெடுக்கவும்",
-    predictionFailedError: "கணிப்பு தோல்வியடைந்தது",
-    
-    // Language Selector
+    predictionFailedError: "பகுப்பாய்வு தோல்வியடைந்தது. மீண்டும் முயலவும்.",
     language: "மொழி",
-    languages: {
-      en: "English",
-      hi: "हिन्दी",
-      ta: "தமிழ்",
-      ml: "മലയാളം"
-    }
+    languages: { en: "English", ru: "Русский", hi: "हिन्दी", ta: "தமிழ்", ml: "മലയാളം" },
+    diagnosis: "நோய் கண்டறிதல்",
+    recognition: "அங்கீகாரம்",
   },
-
   ml: {
-    // Header
     appTitle: "PlantAI",
-    appSubtitle: "AI-പ്രവർത്തിത സസ്യ രോഗ കണ്ടെത്തൽ",
+    appSubtitle: "AI-പ്രവർത്തിത സസ്യ വിശകലനം",
     createdBy: "കാർത്തിക് വി കെ രചിച്ചത്",
-    
-    // Upload Section
-    uploadTitle: "സസ്യ ചിത്രം അപ്‌ലോഡ് ചെയ്യുക",
-    uploadSubtitle: "ഒരു ചിത്രം ഇവിടെ വലിച്ചിടുക അല്ലെങ്കിൽ ബ്രൗസ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
+    uploadTitle: "സസ്യരോഗം നിർണ്ണയിക്കുക",
+    recognizeTitle: "സസ്യങ്ങളുടെ ഇനം തിരിച്ചറിയുക",
+    uploadSubtitle: "രോഗനിർണ്ണയത്തിനായി ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യുക",
+    recognizeSubtitle: "തിരിച്ചറിയലിനായി ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യുക",
+    uploadInstruction: "ഒരു ചിത്രം ഇവിടെ വലിച്ചിടുക അല്ലെങ്കിൽ ബ്രൗസ് ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
     supportedFormats: "8MB വരെ JPEG, PNG പിന്തുണ",
-    
-    // Buttons
-    analyzeButton: "സസ്യം വിശകലനം ചെയ്യുക",
+    analyzeButton: "രോഗനിർണ്ണയം",
+    recognizeButton: "തിരിച്ചറിയുക",
     analyzingButton: "വിശകലനം ചെയ്യുന്നു...",
-    clearButton: "ക്ലിയർ ചെയ്യുക",
+    clearButton: "മായ്ക്കുക",
     analyzeAnotherButton: "മറ്റൊരു ചിത്രം വിശകലനം ചെയ്യുക",
-    
-    // Results Section
     resultsTitle: "വിശകലന ഫലങ്ങൾ",
-    resultsSubtitle: "AI-പ്രവർത്തിത രോഗ കണ്ടെത്തൽ",
+    resultsSubtitle: "AI-പ്രവർത്തിത ഉൾക്കാഴ്ചകൾ",
     uploadPrompt: "ഫലങ്ങൾ കാണാൻ ഒരു ചിത്രം അപ്‌ലോഡ് ചെയ്യുക",
     confidenceLevel: "ആത്മവിശ്വാസ നില",
     analysisTime: "വിശകലനം പൂർത്തിയായി",
-    recommendations: "നിർദ്ദേശങ്ങൾ",
-    
-    // Footer
+    recommendations: "ശുപാർശകൾ",
     poweredBy: "Google Gemini AI പ്രവർത്തിപ്പിക്കുന്നു • വിദ്യാഭ്യാസ ആവശ്യങ്ങൾക്ക് മാത്രം",
     credits: "കാർത്തിക് വി കെ സൃഷ്ടിച്ചത് • React + Cloudflare ഉപയോഗിച്ച് നിർമ്മിച്ചത്",
-    
-    // Errors
     selectImageError: "ദയവായി ഒരു ചിത്രം തിരഞ്ഞെടുക്കുക",
-    predictionFailedError: "പ്രവചനം പരാജയപ്പെട്ടു",
-    
-    // Language Selector
+    predictionFailedError: "വിശകലനം പരാജയപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
     language: "ഭാഷ",
-    languages: {
-      en: "English",
-      hi: "हिन्दी", 
-      ta: "தமிழ்",
-      ml: "മലയാളം"
-    }
-  }
+    languages: { en: "English", ru: "Русский", hi: "हिन्दी", ta: "தமிழ்", ml: "മലയാളം" },
+    diagnosis: "രോഗനിർണയം",
+    recognition: "തിരിച്ചറിയൽ",
+  },
 } as const;
 
 export type Language = keyof typeof translations;
