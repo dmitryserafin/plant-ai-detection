@@ -20,7 +20,7 @@ APP_VERSION = "0.1.0"
 # Load .env if present
 load_dotenv()
 GEMINI_API_KEY_ENV = "GEMINI_API_KEY"
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-pro-vision")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 GEMINI_API_URL = os.getenv("GEMINI_API_URL", "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent")
 MAX_IMAGE_MB = float(os.getenv("MAX_IMAGE_MB", "8"))
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "*").split(",")
