@@ -38,10 +38,10 @@ app.add_middleware(
 )
 
 class DiseaseLocation(BaseModel):
-    x: int
-    y: int
-    width: int
-    height: int
+    x: float
+    y: float
+    width: float
+    height: float
 
 class Soil(BaseModel):
     type: str
@@ -151,7 +151,7 @@ async def call_gemini(api_key: str, image_bytes: bytes, mode: str, language: str
 
         ALL FIELDS INCLUDING DISEASE NAMES, DESCRIPTIONS, RECOMMENDATIONS, AND TECHNICAL TERMS MUST BE IN THE SPECIFIED LANGUAGE.
 
-        IMAGE COORDINATE SYSTEM: The top-left corner is (0, 0). The bottom-right corner is (width, height). Provide coordinates for a single bounding box that encloses the most representative symptom.
+        IMAGE COORDINATE SYSTEM: Use relative coordinates. The top-left corner of the image is (0.0, 0.0) and the bottom-right is (1.0, 1.0). Provide coordinates for a single bounding box that encloses the most representative symptom. All values (x, y, width, height) must be floats between 0.0 and 1.0.
 
         Respond in this exact JSON format with all content in the specified language:
         {{
@@ -164,7 +164,7 @@ async def call_gemini(api_key: str, image_bytes: bytes, mode: str, language: str
           "affected_parts": ["leaves", "stems", "roots", "flowers", "fruits"] in target language,
           "causative_agent": "fungal/bacterial/viral/nutritional/environmental/pest in target language",
           "treatment_urgency": "immediate/within_week/routine_care/monitoring in target language",
-          "disease_location": {{ "x": 120, "y": 250, "width": 80, "height": 100 }}
+          "disease_location": {{ "x": 0.15, "y": 0.25, "width": 0.5, "height": 0.3 }}
         }}
 
         CONFIDENCE SCORING:
