@@ -116,7 +116,14 @@ export default function App() {
           <div className="text-center">
             <h3 className="text-3xl font-bold text-slate-800">{result.plant_name}</h3>
             <p className="text-md text-slate-600 italic">{result.scientific_name}</p>
+            {result.genus && <p className="text-sm text-slate-500">Genus: {result.genus}</p>}
           </div>
+
+          {result.common_names && (
+            <div className="text-center">
+              <p className="text-sm text-slate-600"><strong>Common Names:</strong> {result.common_names.join(', ')}</p>
+            </div>
+          )}
 
           {result.tags && (
             <div className="flex flex-wrap justify-center gap-2">
@@ -131,7 +138,26 @@ export default function App() {
             <div className="bg-white p-4 rounded-lg shadow-sm"><strong>Sunlight:</strong> {result.sunlight}</div>
             <div className="bg-white p-4 rounded-lg shadow-sm"><strong>Temperature:</strong> {result.temperature}</div>
             <div className="bg-white p-4 rounded-lg shadow-sm"><strong>Humidity:</strong> {result.humidity}</div>
+            {result.fertilizing && <div className="bg-white p-4 rounded-lg shadow-sm col-span-2"><strong>Fertilizing:</strong> {result.fertilizing}</div>}
+            {result.repotting && <div className="bg-white p-4 rounded-lg shadow-sm col-span-2"><strong>Repotting:</strong> {result.repotting}</div>}
           </div>
+
+          {result.soil && (
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h4 className="font-bold text-md mb-2">Soil Information</h4>
+              <p><strong>Type:</strong> {result.soil.type}</p>
+              <p><strong>Drainage:</strong> {result.soil.drainage}</p>
+              <p><strong>pH:</strong> {result.soil.ph}</p>
+            </div>
+          )}
+
+          {result.pests_and_diseases && (
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h4 className="font-bold text-md mb-2">Pests & Diseases</h4>
+              <p><strong>Pests:</strong> {result.pests_and_diseases.pests.join(', ')}</p>
+              <p><strong>Diseases:</strong> {result.pests_and_diseases.disease.join(', ')}</p>
+            </div>
+          )}
 
           {/* Action Buttons */}
           <div className="pt-4 border-t border-slate-200">
