@@ -43,16 +43,9 @@ export default function App() {
   const [language, setLanguage] = useState<Language>('en')
   const [mode, setMode] = useState<AnalysisMode>('diagnosis')
   const [result, setResult] = useState<Result | null>(null)
-  const [boxStyle, setBoxStyle] = useState({})
 
   const inputRef = useRef<HTMLInputElement | null>(null)
   const imgRef = useRef<HTMLImageElement | null>(null)
-  const [imageDimensions, setImageDimensions] = useState<{
-    offsetWidth: number;
-    offsetHeight: number;
-    naturalWidth: number;
-    naturalHeight: number;
-  } | null>(null)
 
   const t = translations[language]
 
@@ -60,47 +53,10 @@ export default function App() {
     return () => { if (imgUrl) URL.revokeObjectURL(imgUrl) }
   }, [imgUrl])
 
-  useEffect(() => {
-    if (result?.disease_location && imageDimensions) {
-      const {
-        offsetWidth: viewWidth,
-        offsetHeight: viewHeight,
-        naturalWidth,
-        naturalHeight
-      } = imageDimensions
-      const { x, y, width, height } = result.disease_location
-
-      const viewAspect = viewWidth / viewHeight
-      const naturalAspect = naturalWidth / naturalHeight
-
-      let scale: number
-      let xOffset = 0
-      let yOffset = 0
-
-      if (viewAspect > naturalAspect) {
-        // View is wider than image, so image is letterboxed (top/bottom bars)
-        scale = viewHeight / naturalHeight
-        xOffset = (viewWidth - (naturalWidth * scale)) / 2
-      } else {
-        // View is taller than image, so image is pillarboxed (left/right bars)
-        scale = viewWidth / naturalWidth
-        yOffset = (viewHeight - (naturalHeight * scale)) / 2
-      }
-
-      setBoxStyle({
-        left: `${x * scale + xOffset}px`,
-        top: `${y * scale + yOffset}px`,
-        width: `${width * scale}px`,
-        height: `${height * scale}px`,
-      })
-    }
-  }, [result, imageDimensions])
-
   function onFileChange(e: ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0]
     setError(null)
     setResult(null)
-    setImageDimensions(null)
     if (f) {
       setFile(f)
       const url = URL.createObjectURL(f)
@@ -138,7 +94,7 @@ export default function App() {
   }
 
   function onClear() {
-    setFile(null); setImgUrl(null); setResult(null); setError(null); setImageDimensions(null)
+    setFile(null); setImgUrl(null); setResult(null); setError(null);
     inputRef.current?.value && (inputRef.current.value = '')
   }
 
@@ -365,23 +321,17 @@ export default function App() {
                           src={imgUrl || ''}
                           className="max-w-full max-h-64 rounded-lg shadow-md object-cover"
                           alt="Plant preview"
-                          onLoad={(e) => {
-                            const img = e.currentTarget;
-                            setImageDimensions({
-                              offsetWidth: img.offsetWidth,
-                              offsetHeight: img.offsetHeight,
-                              naturalWidth: img.naturalWidth,
-                              naturalHeight: img.naturalHeight,
-                            });
-                          }}
                         />
-                        {mode === 'diagnosis' && result?.disease_location && imageDimensions && (
+                        {mode === 'diagnosis' && result?.disease_location && (
                           <div
                             data-testid="bounding-box"
                             className="absolute border-4 border-red-500 pointer-events-none rounded-md"
                             style={{
                               boxShadow: '0 0 10px rgba(255, 0, 0, 0.5)',
-                              ...boxStyle
+                              left: `${result.disease_location.x * 100}%`,
+                              top: `${result.disease_location.y * 100}%`,
+                              width: `${result.disease_location.width * 100}%`,
+                              height: `${result.disease_location.height * 100}%`,
                             }}
                           />
                         )}
