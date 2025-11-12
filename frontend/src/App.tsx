@@ -43,6 +43,7 @@ export default function App() {
   const [language, setLanguage] = useState<Language>('en')
   const [mode, setMode] = useState<AnalysisMode>('diagnosis')
   const [result, setResult] = useState<Result | null>(null)
+  const [boxStyle, setBoxStyle] = useState({})
 
   const inputRef = useRef<HTMLInputElement | null>(null)
   const imgRef = useRef<HTMLImageElement | null>(null)
@@ -58,6 +59,42 @@ export default function App() {
   useEffect(() => {
     return () => { if (imgUrl) URL.revokeObjectURL(imgUrl) }
   }, [imgUrl])
+
+  useEffect(() => {
+    if (result?.disease_location && imageDimensions) {
+      const {
+        offsetWidth: viewWidth,
+        offsetHeight: viewHeight,
+        naturalWidth,
+        naturalHeight
+      } = imageDimensions
+      const { x, y, width, height } = result.disease_location
+
+      const viewAspect = viewWidth / viewHeight
+      const naturalAspect = naturalWidth / naturalHeight
+
+      let scale: number
+      let xOffset = 0
+      let yOffset = 0
+
+      if (viewAspect > naturalAspect) {
+        // View is wider than image, so image is letterboxed (top/bottom bars)
+        scale = viewHeight / naturalHeight
+        xOffset = (viewWidth - (naturalWidth * scale)) / 2
+      } else {
+        // View is taller than image, so image is pillarboxed (left/right bars)
+        scale = viewWidth / naturalWidth
+        yOffset = (viewHeight - (naturalHeight * scale)) / 2
+      }
+
+      setBoxStyle({
+        left: `${x * scale + xOffset}px`,
+        top: `${y * scale + yOffset}px`,
+        width: `${width * scale}px`,
+        height: `${height * scale}px`,
+      })
+    }
+  }, [result, imageDimensions])
 
   function onFileChange(e: ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0]
@@ -344,10 +381,7 @@ export default function App() {
                             className="absolute border-4 border-red-500 pointer-events-none rounded-md"
                             style={{
                               boxShadow: '0 0 10px rgba(255, 0, 0, 0.5)',
-                              left: `${(result.disease_location.x / imageDimensions.naturalWidth) * imageDimensions.offsetWidth}px`,
-                              top: `${(result.disease_location.y / imageDimensions.naturalHeight) * imageDimensions.offsetHeight}px`,
-                              width: `${(result.disease_location.width / imageDimensions.naturalWidth) * imageDimensions.offsetWidth}px`,
-                              height: `${(result.disease_location.height / imageDimensions.naturalHeight) * imageDimensions.offsetHeight}px`,
+                              ...boxStyle
                             }}
                           />
                         )}
@@ -361,7 +395,8 @@ export default function App() {
                 </div>
 
                 <div className="flex gap-4">
-                  <button 
+                  <button
+                    data-testid="predict-button"
                     onClick={onPredict} 
                     disabled={loading || !file} 
                     className="flex-1 px-6 py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:from-green-600 hover:to-emerald-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
